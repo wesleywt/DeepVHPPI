@@ -3,7 +3,6 @@ import tqdm
 from collections import Counter
 
 
-
 # python vocab.py -c data/pfam/pfam_train.raw -o data/vocab.data
 
 class TorchVocab(object):
@@ -97,11 +96,11 @@ class Vocab(TorchVocab):
         self.pad_index = 0
         self.mask_index = 1
         self.cls_index = 2
-        self.unk_index = 3 
-        
-        super().__init__(counter, specials=["<pad>","<mask>","<cls>","<unk>"],max_size=max_size, min_freq=min_freq)
+        self.unk_index = 3
 
-    def to_seq(self, sentece, seq_len, with_eos=False, with_sos=False) -> list:
+        super().__init__(counter, specials=["<pad>", "<mask>", "<cls>", "<unk>"], max_size=max_size, min_freq=min_freq)
+
+    def to_seq(self, sentence, seq_len, with_eos=False, with_sos=False) -> list:
         pass
 
     def from_seq(self, seq, join=False, with_pad=False):
