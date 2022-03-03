@@ -3,10 +3,11 @@ import time
 import pandas as pd
 from Bio import Entrez
 from tqdm import tqdm
-from utils.uniprot_query import UniprotQueryClient
+from local_packages.uniprot_query import UniprotQueryClient
 import numpy as np
 from sklearn.model_selection import train_test_split
 import json
+from fasta_to_pandas import fasta_to_pandas
 """parse_hidb formats the datasets downloaded from HPIDB https://hpidb.igbb.msstate.edu/"""
 
 class Models:
@@ -156,10 +157,8 @@ if __name__ == '__main__':
     input_csv = 'williams_MTB/pathcat_BACTERIA.mitab_plus.txt'
     random_csv = 'williams_MTB/uniprot_negative.csv'
     interactionDF = create_interaction_df(input_csv)
-    negative_interaction_df = add_random_negative_entries(interactionDF,
-                                                          'Uniprot_B',
-                                                          from_random_csv=True,
-                                                          csv_file=random_csv)
+    negative_examples = fasta_to_pandas('williams_MTB/new_negative_examples.fasta', 'Uniprot_B','Seq2')
+    negative_interaction_df = interactionDF['Uniprot']
 
     list_train, list_test = create_train_test_list(interactionDF, negative_interaction_df)
     with open('williams_MTB/hidb_train.json', 'w') as f:
