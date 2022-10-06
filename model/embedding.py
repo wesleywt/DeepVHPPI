@@ -89,12 +89,12 @@ class BERTEmbeddingConv(nn.Module):
         self.dropout = nn.Dropout(p=dropout)
 
     def forward(self, sequence, psi=None):
+        conv_result = []
         if self.pos == 'sin':
 
             char_embs = self.onehot(sequence)
             char_embs = char_embs.transpose(1, 2)  # BTC -> BCT
 
-            conv_result = []
             for conv in self.convolutions:
                 x_cls = conv(char_embs)[:, :, 0:1]  # separate the CLS token from the rest of the seq
                 x = conv(char_embs)[:, :, 1:sequence.size(1)]
@@ -139,7 +139,7 @@ class BERTEmbeddingContinuous(nn.Module):
         for width, out_c in filters:
             self.convolutions.append(
                 nn.Conv1d(vocab_size, out_c, kernel_size=width, padding=int(width / 2))
-            )
+            ) # padding ensures the output shape of each feature across the widths are the same.
         last_dim = sum(f[1] for f in filters)
         self.highway = Highway(last_dim, highway_layers) if highway_layers > 0 else None
         self.projection = nn.Linear(last_dim, embed_size)

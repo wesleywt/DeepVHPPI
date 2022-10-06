@@ -616,7 +616,7 @@ class JsonDatasetPairwiseClassification(Dataset):
 
         end_val = start_val + self.seq_len
 
-        seq1 = np.array((seq1)[start_val:end_val])
+        seq1 = np.array(seq1[start_val:end_val])
 
         if self.random_subseq:
             start_max = max(0, len(seq2) - self.seq_len)
@@ -625,7 +625,7 @@ class JsonDatasetPairwiseClassification(Dataset):
             start_val = 0
 
         end_val = start_val + self.seq_len
-        seq2 = np.array((seq2)[start_val:end_val])
+        seq2 = np.array(seq2[start_val:end_val])
         line_len = len(seq1) + len(seq2)
         # stop()
         return seq1, id1, seq2, id2, label, bert_label_continuous, line_len, sep

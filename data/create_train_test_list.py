@@ -1,6 +1,7 @@
 from sklearn.model_selection import train_test_split
 import random
 
+
 def create_split_list(df, split_list, is_interaction):
     for i in range(0, len(df)):
         bacterial_protein = df['Uniprot_A'].iloc[i]

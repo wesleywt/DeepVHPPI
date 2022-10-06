@@ -15,7 +15,6 @@ from utils.optim_schedule import WarmupLinearSchedule
 class BERTPreTrainer:
     """ProteinBERT Trainer class, used to train the model
     """
-
     def __init__(self,
                  model_and_data,
                  optimizer,

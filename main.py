@@ -87,7 +87,7 @@ for epoch in range(args.epochs):
         Logger.log_train(train_metrics, epoch)
         if args.pretrain or 'ALL' in args.model_name:
             print('Saving')
-            output_path = args.model_name + "/best_model.pt"
+            output_path = args.model_name + f"/epoch{epoch}_best_model.pt"
             torch.save(runner.model.cpu().state_dict(), output_path)
             runner.model.to(runner.device)
 

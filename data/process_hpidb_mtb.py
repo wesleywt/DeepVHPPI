@@ -7,7 +7,7 @@ from local_packages.uniprot_query import UniprotQueryClient
 import numpy as np
 from sklearn.model_selection import train_test_split
 import json
-from fasta_to_pandas import fasta_to_pandas
+from data.fasta_to_pandas import convert_fasta_to_pandas
 """parse_hidb formats the datasets downloaded from HPIDB https://hpidb.igbb.msstate.edu/"""
 
 class Models:
@@ -157,11 +157,15 @@ if __name__ == '__main__':
     input_csv = 'williams_MTB/pathcat_BACTERIA.mitab_plus.txt'
     random_csv = 'williams_MTB/uniprot_negative.csv'
     interactionDF = create_interaction_df(input_csv)
-    negative_examples = fasta_to_pandas('williams_MTB/new_negative_examples.fasta', 'Uniprot_B','Seq2')
-    negative_interaction_df = interactionDF['Uniprot']
+    negative_examples_df = convert_fasta_to_pandas('williams_MTB/new_negative_examples.fasta', 'Uniprot_B','Seq2')
+    negative_interaction_df = interactionDF[['Uniprot_A','Seq1']]
+    negative_interaction_df[['Uniprot_B','Seq2']] = negative_examples_df[['Uniprot_B','Seq2']]
+    negative_interaction_df
 
     list_train, list_test = create_train_test_list(interactionDF, negative_interaction_df)
     with open('williams_MTB/hidb_train.json', 'w') as f:
         json.dump(list_train, f)
     with open('williams_MTB/hidb_test.json', 'w') as f:
         json.dump(list_test, f)
+
+#%%

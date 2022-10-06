@@ -3,7 +3,7 @@ from Bio import SeqIO
 import numpy as np
 
 
-def fasta_to_pandas(fasta_file, id_column, seq_column):
+def convert_fasta_to_pandas(fasta_file, id_column, seq_column):
     """
     Convert a fasta file to a pandas dataframe
     Parameters:
@@ -26,5 +26,7 @@ def fasta_to_pandas(fasta_file, id_column, seq_column):
 
 
 if __name__ == '__main__':
-    novel_df = fasta_to_pandas('williams_MTB/negative_novel', 'Uniprot_B', 'Seq2')
+    novel_df = convert_fasta_to_pandas('williams_MTB/negative_examples.fasta', 'Uniprot_B', 'Seq2')
     print(len(novel_df))
+
+#%%
