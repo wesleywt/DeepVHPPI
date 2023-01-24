@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "deepvhppi"
+version = "0.1.0"
+description = ""
+authors = ["wesleywt <w.williams@instadeep.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.10, <3.11"
+torch = "^1.13.1"
+torchvision = "^0.14.1"
+torchaudio = "^0.13.1"
+tqdm = "^4.64.1"
+scipy = "^1.10.0"
+bio = "^1.5.3"
+sklearn = "^0.0.post1"
+scikit-learn = "^1.2.0"
+matplotlib = "^3.6.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
